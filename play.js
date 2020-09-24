@@ -2,9 +2,9 @@ const { connect } = require('./client');
 const { setupInput } = require('./input');
 
 console.log('Connecting ...');
-connect();
+const conn = connect();
 
-setupInput();
+setupInput(conn);
 
 /**
  * Setup User Interface 
@@ -31,5 +31,5 @@ setupInput();
 // }
 
 // setupInput();
-
+// module.exports = { connect };
 

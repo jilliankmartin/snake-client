@@ -1,23 +1,39 @@
-const setupInput = function() {
+let connection;
+
+const setupInput = function(conn) {
+  connection = conn;
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding('utf8');
   stdin.resume();
-
-  const handleUserInput = function() {
-    stdin.on('data', (key) => {
-      if (key === '\u0003') {
-        process.exit();
-      }
-    });
-  };
-  
-  handleUserInput();
-
+  stdin.on('data', (key) => {
+    handleUserInput(connection, key);
+  });
   
   return stdin;
 }
 
-// setupInput();
+const handleUserInput = function(connection, key) {
+    if (key === '\u0003') {
+      process.exit();
+    }
+    if (key === '\u0077') {
+      connection.write("Move: up");
+    }
+    if (key === '\u0061') {
+      connection.write("Move: left");
+    }
+    if (key === '\u0073') {
+      connection.write("Move: down");
+    }
+    if (key === '\u0064') {
+      connection.write("Move: right");
+    }
+    if (key === '\u0068') {
+      connection.write("Say: Hi");
+    }
+};
 
-module.exports = setupInput;
+// setupInput(conn);
+
+module.exports = { setupInput };
